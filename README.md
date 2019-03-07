@@ -5,3 +5,4 @@ Repozytorium przeznoczone dla projektów realizowanych w ramach przedmioty Zaawa
 ## Członkowie zespołu:
 * Michał Puchalski
 * Anna Chojnacka
+* Paweł Sadłowski
