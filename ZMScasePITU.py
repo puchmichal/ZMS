@@ -310,7 +310,7 @@ def symuluj_ubezpieczenia(l_klientow,nadwyzka,skladka,srednia_l_szkod,sr_szkoda_
         l_wyplat = kal_l_wyplat[dzien]
         odszkodowania = 0
         if l_wyplat>0:
-            odszkodowania=np.sum(rd.lognormal(sr_szkoda_ln,std_szkoda_ln,l_wyplat))
+            odszkodowania=np.sum(np.exp(rd.normal(sr_szkoda_ln,std_szkoda_ln,l_wyplat)))
         if (nadwyzka<odszkodowania):
             return (nadwyzka-odszkodowania, dzien)
         nadwyzka -= odszkodowania
