@@ -1,0 +1,104 @@
+\documentclass[12pt, a4paper, oneside]{mwart} % Z automatu 10pt w przypisach
+\usepackage[utf8]{inputenc} % Znaki diakrytyczne z klawiatury
+\usepackage[OT4]{fontenc} % OT4 ponizej nie dzialalo
+\usepackage[plmath,MeX]{polski} % Ponoc lepsza polonizacja LaTeXa
+%\usepackage[dvips]{graphicx}
+\usepackage[pdftex]{color,graphicx} % Grafika w PDFowej formie
+%\usepackage{dcolumn} % Wyrownywanie przecinka w tabelach
+%\newcolumntype{d}[1]{D{.}{,}{#1}} % Typ kolumny do wyrownywania
+%\usepackage{threeparttable} % Coby ladnie podpisac tabelki
+%\usepackage{rotating} % for sidewaystable
+%\usepackage{subfig}
+
+\usepackage[pdftex]{hyperref} % Zarzadza hiperlaczami w dokumencie, ostatni w preambule, dvips/pdftex zaleznie od wyjscia
+
+\begin{document}
+\title{Zaawansowane Modelowanie Symulacyjne [234060-0723]\\ 
+\bigskip
+PiTU~S.A.\\
+Symulacja portfela ubezpieczeń komunikacyjnych}
+\author{Anna Chojnacka, 65514 (budowa modelu) \and
+Michał Puchalski, 67827 (analiza wrażliwości) \and
+Paweł Sadłowski, 68404 (edycja raportu)}
+\maketitle
+
+\begin{abstract}
+Tutaj streszczenie
+\end{abstract}
+
+\section{Opis~organizacji}
+PiTU S.A. to~zakład ubezpieczeń specjalizujący~się w~ubezpieczeniach komunikacyjnych. Jego~aktywność jest skoncentrowana w~nieznanym z~nazwy kraju. Firma należy do~liderów silnie skoncentrowanego rynku, jej ubiegłoroczne przychody wyniosły niespełna 843~tys.~PLN. Najsilniejszą presję konkurencyjną wywiera lokalny zakład ubezpieczeń z~dużym udziałem własnościowym skarbu państwa oraz trzy mniejsze filie korporacji zagranicznych.
+
+\section{Opis problemu}
+Kraj, w~którym PiTU~S.A. prowadzi swoją działalność notuje rosnącą imigrację z~sąsiedniego Dżydżykistanu. Z~uwagi na~naturalnie wyższą skłonność do~zachowań ryzykownych u~przedstawicieli tej~narodowości firma spodziewa~się wzrostu szkodowości, w~związku z~czym przewiduje konieczność podniesienia składki. Celem przeprowadzonej symulacji jest wyznaczenie odpowiedniej wysokości składki zabezpieczającej towarzystwo ubezpieczeniowe przed niewypłacalnością. Zakres analizy obejmuje także ocenę wrażliwości nadwyżki końcowej oraz prawdopodobieństwa niewypłacalności na~wysokość nadwyżki początkowej oraz pobieranej składki.
+\subsection{Szczegółowy scenariusz symulacji}
+%\begin{table}
+%\caption{Rozkład szkód zgłaszanych przez Dżydżyków}
+%\label{l_szkod}
+%\begin{tabular}{r|l}
+%0&3 437\\
+%1&522\\
+%2&40\\
+%3&2\\
+%4&0\\
+%5&0\\
+%\end{tabular}
+%\end{table}
+%\begin{table}
+%\caption{Wysokość szkód zgłaszanych przez Dżydżyków}
+%\label{wys_szkod}
+%\begin{tabular}{r|l}
+%100&0\\
+%200&2\\
+%500&27\\
+%1 000&52\\
+%2 000&115\\
+%5 000&203\\
+%10 000&106\\
+%20 000&42\\
+%40 000&14\\
+%50 000&0\\
+%55 000&0\\
+%60 000&1\\
+%\end{tabular}
+%\end{table}
+
+\begin{table}
+\centering
+\caption{Rozkład szkód zgłaszanych przez Dżydżyków}
+\label{r_szkod}
+\begin{tabular}{p{1cm}|l||c||r|l}
+\multicolumn{2}{c||}{Liczba~szkód}&\hspace{1cm}&\multicolumn{2}{c}{Wysokość szkody}\\ \hline
+0&3 437& \hspace{1cm} & 100&0\\
+1&522& \hspace{1cm} & 200&2\\
+2&40& \hspace{1cm} & 500&27\\
+3&2& \hspace{1cm} & 1 000&52\\
+4&0& \hspace{1cm} & 2 000&115\\
+5&0& \hspace{1cm} & 5 000&203\\
+&&&10 000&106\\
+&&&20 000&42\\
+&&&40 000&14\\
+&&&50 000&0\\
+&&&55 000&0\\
+&&&60 000&1\\
+\end{tabular}
+\end{table}
+
+Firma PiTU~S.A. dysponuje historycznymi danymi dotyczącymi liczby oraz wielkości szkód zgłaszanych przez klientów dżydżyckiej narodowości. Przekazane informacje zostały ujęte w tabeli~\ref{r_szkod}. Prezes zarządu spodziewa~się portfela liczącego ok.~100 polis, a~bieżąca nadwyżka wynosi 10~000~PLN. Dział~Aktuarialny PiTU~S.A. rekomenduje przybliżanie liczby szkód przez rozkład Poissona, a~ich wysokości przez rozkład log-normalny. Przedstawione dane nie~dają podstaw do~odrzucenia tych założeń --- do~ich weryfikacji zastosowano odpowiednio: test $\chi^2$ oraz test Kołmogorowa-Smirnowa. W~obu przypadkach p-value znacznie przekraczało 0.9, więc wykorzystanie w~procesie modelowania wymienionych rozkładów jest uzasadnione. Horyzont czasowy analizy został ustalony na~dwa lata.
+
+\subsection{Struktura modelu}
+Modelowanym zjawiskiem jest wielkość nadwyżki w~dyspozycji zakładu ubezpieczeniowego w~poszczególnych dniach. W~każdej iteracji symulacji ustalona liczba klientów (100) wykupuje polisę ubezpieczeniową w~trakcie pierwszego roku. Dla każdego z~klientów data zawarcia umowy jest losowana z~rozkładu o~jednakowych prawdopodobieństwach. Następnie dla każdego klienta losowane są: liczba szkód (z~rozkładu Poissona), a~także data wystąpienia (ponownie z~rozkładu o~jednakowych prawdopodobieństwach) oraz wysokość każdej z~nich (rozkład log-normalny) --- o~ile wystąpią. Ostatecznie stan nadwyżki jest obliczany na~każdy kolejny dzień w~horyzoncie czasowym symulacji, z~uwzględnieniem wpływów ze~składek oraz wydatków na~pokrycie szkód. W~przypadku gdy dowolnego dnia suma szkód przekracza wartość dostępnej nadwyżki, dochodzi do~niewypłacalności. W~przeciwnym razie model zwraca stan nadwyżki na~koniec okresu symulacji.
+
+\section{Wyniki analizy}
+
+\subsection{Optymalna wysokość składki}
+Krzywa prawdopodobieństwa niewypłacalności przedstawiona na~wykresie ma~kształt hiperboli. Wybór~optymalnej wysokości składki powinien zatem równoważyć niskie prawdopodobieństwo bankructwa oraz niski poziom składki, tak~aby zniechęceni klienci nie~zdecydowali~się na~konkurencyjną ofertę. Punkt załamania krzywej znajduje~się w~okolicach składki wynoszącej 1000~PLN. Prawdopodobieństwo niewypłacalności wynosi wówczas niespełna 10\%, a~co za~tym idzie --- wciąż jest duże. Najmniejszą wysokością składki, dla~której nie~przekracza ono poziomu 1\% jest 1500~PLN.
+
+\subsection{Rentowność}
+Analiza średniego wyniku dodatniego (wykres) wskazuje, że~dla każdego z~rozważanych poziomów składki przeciętna wysokość nadwyżki w~scenariuszach, gdzie firma pozostaje wypłacalna, przekracza poziom wyjściowy, tj.~10~000~PLN. Oznacza~to, że~działalność jest bezsprzecznie dochodowa pod~warunkiem ograniczenia ryzyka bankructwa do~akceptowalnego poziomu. Przykładowo dla~składki równej 1000~PLN, wyłączając przypadki niewypłacalności, nadwyżka końcowa jest ponad czterokrotnie większa od~początkowej. Z~kolei dla~rekomendowanej wysokości składki (1500~PLN) pozytywne scenariusze kończyły~się nadwyżką wynoszącą przeciętnie niespełna 90~000~PLN.
+
+\section{Analiza wrażliwości}
+
+\section{Wnioski i zalecenia}
+%\bibliography{•}
+\end{document}
