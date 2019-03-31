@@ -90,14 +90,41 @@ Firma PiTU~S.A. dysponuje historycznymi danymi dotyczącymi liczby oraz wielkoś
 Modelowanym zjawiskiem jest wielkość nadwyżki w~dyspozycji zakładu ubezpieczeniowego w~poszczególnych dniach. W~każdej iteracji symulacji ustalona liczba klientów (100) wykupuje polisę ubezpieczeniową w~trakcie pierwszego roku. Dla każdego z~klientów data zawarcia umowy jest losowana z~rozkładu o~jednakowych prawdopodobieństwach. Następnie dla każdego klienta losowane są: liczba szkód (z~rozkładu Poissona), a~także data wystąpienia (ponownie z~rozkładu o~jednakowych prawdopodobieństwach) oraz wysokość każdej z~nich (rozkład log-normalny) --- o~ile wystąpią. Ostatecznie stan nadwyżki jest obliczany na~każdy kolejny dzień w~horyzoncie czasowym symulacji, z~uwzględnieniem wpływów ze~składek oraz wydatków na~pokrycie szkód. W~przypadku gdy dowolnego dnia suma szkód przekracza wartość dostępnej nadwyżki, dochodzi do~niewypłacalności. W~przeciwnym razie model zwraca stan nadwyżki na~koniec okresu symulacji.
 
 \section{Wyniki analizy}
+Przedstawione w~dalszej części wyniki oraz wnioski są oparte na~rezultatach symulacji, w~której każdy zestaw parametrów był podstawą 1000 iteracji modelu. W~następnym kroku rezultaty zostały zagregowane.
 
-\subsection{Optymalna wysokość składki}
-Krzywa prawdopodobieństwa niewypłacalności przedstawiona na~wykresie ma~kształt hiperboli. Wybór~optymalnej wysokości składki powinien zatem równoważyć niskie prawdopodobieństwo bankructwa oraz niski poziom składki, tak~aby zniechęceni klienci nie~zdecydowali~się na~konkurencyjną ofertę. Punkt załamania krzywej znajduje~się w~okolicach składki wynoszącej 1000~PLN. Prawdopodobieństwo niewypłacalności wynosi wówczas niespełna 10\%, a~co za~tym idzie --- wciąż jest duże. Najmniejszą wysokością składki, dla~której nie~przekracza ono poziomu 1\% jest 1500~PLN.
+\subsection{Wysokość składki a prawdopodobieństwo bankructwa}
+Wyniki analizy jednoznacznie wskazują, że~składka w~wysokości 500~PLN nie~pokrywa ryzyka wystąpienia szkód w~wystarczającym stopniu --- prawdopodobieństwo niewypłacalności wyniosło 0.627. 
+\begin{figure}
+\centering
+\includegraphics[width = \textwidth]{n=1000/p_bankructwa.pdf}
+\caption{Prawdopodobieństwo bankructwa dla poszczególnych wysokości składki}
+\label{p_bankructwa_n1000}
+\end{figure}
+Wykres~\ref{p_bankructwa_n1000} ilustruje zależność pomiędzy wysokością składki a~prawdopodobieństwem bankructwa. Krzywa ma~kształt hiperboliczny, co~oznacza, że~podnoszenie składki poprawia perspektywy zakładu ubezpieczeniowego w~coraz mniejszym stopniu. Wybór~optymalnej wysokości składki powinien zatem równoważyć niskie prawdopodobieństwo bankructwa oraz niski poziom składki, tak~aby zniechęceni klienci nie~zdecydowali~się na~konkurencyjną ofertę. Punkt załamania krzywej znajduje~się w~okolicach składki wynoszącej 1000~PLN. Prawdopodobieństwo niewypłacalności wynosi wówczas niespełna 10\%, a~co za~tym idzie --- wciąż jest duże. Najmniejszą wysokością składki, dla~której nie~przekracza ono poziomu 1\% jest 1500~PLN.
 
-\subsection{Rentowność}
-Analiza średniego wyniku dodatniego (wykres) wskazuje, że~dla każdego z~rozważanych poziomów składki przeciętna wysokość nadwyżki w~scenariuszach, gdzie firma pozostaje wypłacalna, przekracza poziom wyjściowy, tj.~10~000~PLN. Oznacza~to, że~działalność jest bezsprzecznie dochodowa pod~warunkiem ograniczenia ryzyka bankructwa do~akceptowalnego poziomu. Przykładowo dla~składki równej 1000~PLN, wyłączając przypadki niewypłacalności, nadwyżka końcowa jest ponad czterokrotnie większa od~początkowej. Z~kolei dla~rekomendowanej wysokości składki (1500~PLN) pozytywne scenariusze kończyły~się nadwyżką wynoszącą przeciętnie niespełna 90~000~PLN.
+\subsection{Wpływ nadwyżki początkowej na prawdopodobieństwo bankructwa}
+Drugim parametrem, który wpływa na~szanse utrzymania~się przez przedsiębiorstwo na~rynku jest wysokość nadwyżki początkowej. Ze~swojej natury jest~to wielkość, którą znacznie trudniej kontrolować (jej~podniesienie wymagałoby najprawdopodobniej pozyskania przez PiTU~S.A. dodatkowego finansowania), a~przy tym uzyskane efekty będą miały charakter tymczasowy --- będą w~stanie uchronić firmę przed upadłością, ale nie~przyczynią~się do~trwałego wzrostu rentowności portfela.
+\begin{figure}
+\centering
+\includegraphics[width = \textwidth]{n=1000/p_bankructwa_porownanie.pdf}
+\caption{Porównanie prawdopodobieństw bankructwa dla~różnych poziomów nadwyżki początkowej}
+\label{p_bankructwa_porownanie_n1000}
+\end{figure}
+Wykres~\ref{p_bankructwa_porownanie_n1000} obrazuje tę~tendencję --- wpływ nadwyżki znacząco maleje wraz ze~wzrostem rentowności portfela, tak~że przy prawdopodobieństwie bankructwa nie~większym niż 10\% jego znaczenie pozostaje marginalne. Z~tego powodu priorytetem powinno pozostać ustalenie składki na~poziomie gwarantującym długoterminową rentowność portfela polis ubezpieczeniowych.
+
+\subsection{Wysokość nadwyżki końcowej}
+\begin{figure}
+\centering
+\includegraphics[width = \textwidth]{n=1000/nadwyzka.pdf}
+\caption{Przeciętna nadwyżka końcowa w~scenariuszach pozytywnych dla różnych poziomów składki}
+\label{nadwyzka_n1000}
+\end{figure}
+Warto zaznaczyć, że~w pozytywnych scenariuszach (tj.~gdy firma unika niewypłacalności) nadwyżka końcowa w~większości przypadków przekracza nadwyżkę początkową. Jak widać na wykresie~\ref{nadwyzka_n1000} nawet dla składki wynoszącej 500~PLN PiTU~S.A. mogłoby oczekiwać zysku na~poziomie 4955~PLN, pod warunkiem że~firmie udałoby~się uniknąć niewypłacalności. Różnica pomiędzy średnią nadwyżką końcową a~nadwyżką początkową przekracza 1~odchylenie standardowej pierwszej wielkości począwszy od~składki równej 800~PLN, zaś próg dwóch odchyleń standardowych jest osiągany dla~składki równej 1200~PLN.
 
 \section{Analiza wrażliwości}
+
+\subsection{Błąd oszacowania szkodowości}
+Naturalizacja dużej grupy obywateli Dżydżykistanu może spowodować zmianę charakterystyk populacji --- nowi klienci mogą okazać~się grupą bardziej lub~mniej ryzykowną od~dotychczasowych, przez co~oszacowanie parametru $\lambda$ w~rozkładzie Poissona nie~będzie w~adekwatny sposób odzwierciedlało ryzyka wystąpienia szkody. Należy podejrzewać, że~efekt ten będzie dotyczył raczej liczby zgłaszanych szkód niż ich~wysokości. Z~tego powodu przedmiotem analizy wrażliwości uczyniliśmy oszacowanie parametru $\lambda$, rozważając jego niedoszacowanie oraz przeszacowanie o~5\%.
 
 \section{Wnioski i zalecenia}
 %\bibliography{•}

@@ -68,12 +68,14 @@
 # In[ ]:
 
 
-path = r'C:\Users\Nusza\Desktop'
+path = r'E:\ZMS\ZMS'
 
 import csv
 import scipy as sc
 import matplotlib.pyplot as plt
 from scipy.stats.stats import kstest
+import numpy as np
+from pandas import DataFrame
 
 
 # ## 1. Dane - rozkłady, wyznaczanie parametrów
@@ -105,8 +107,14 @@ SREDNIA_LICZBA_SZKOD = (sum([x * y for x, y in liczba_szkod.items()]) /
 poisson_test = [sc.stats.poisson.pmf(i, SREDNIA_LICZBA_SZKOD) * 
                 sum(liczba_szkod.values()) for i in range(len(liczba_szkod))]
 
+
+fig = plt.figure(figsize = (10,5))
 plt.bar(list(liczba_szkod.keys()), poisson_test, color = "orange")
-plt.show()
+plt.bar(list(liczba_szkod.keys()), list(liczba_szkod.values()), color = 'blue', width = 0.6)
+plt.ylabel('Częstość')
+plt.xlabel('Liczba zgłoszonych szkód')
+plt.legend(['Rozkład empiryczny', 'Rozkład teoretyczny'])
+fig.savefig(path+r'\rozklad_l_szkod.pdf')
 
 
 # In[ ]:
@@ -143,13 +151,6 @@ print ("Srednia wielkosc szkod:", round(sc.mean(szkody)))
 # wielkość szkód ma rozkład log-normalny:
 szkody_ln = sc.log(szkody)
 
-plt.hist(szkody_ln, bins=50)
-plt.show()        
-
-
-# In[ ]:
-
-
 # ... czy faktycznie? test K-S
 test2 = kstest(szkody_ln, sc.stats.norm.cdf, 
                args = (sc.mean(szkody_ln), sc.std(szkody_ln)))
@@ -168,6 +169,15 @@ else:
 SR_SZKODA_LN = sc.mean(szkody_ln)
 STD_SZKODA_LN = sc.std(szkody_ln)
 
+# Przesunalem nizej, zeby miec zdefiniowane zmienne juz ~PS
+fig = plt.figure(figsize = (10,5))
+plt.hist(szkody_ln, bins=50, density = True, color = 'orange')
+x_norm = np.linspace(min(szkody_ln), max(szkody_ln), 100)
+y_norm = sc.stats.norm.pdf(x_norm, SR_SZKODA_LN, STD_SZKODA_LN)
+plt.plot(x_norm, y_norm)
+plt.legend(['Dopasowany r. normalny', 'Histogram rozkładu empirycznego'])
+plt.ylabel('Gęstość masy prawdopodobieństwa')
+fig.savefig(path+r'\rozklad_wys_szkody.pdf')
 
 # ## 2. Model symulacji
 
@@ -237,8 +247,9 @@ def wywolanie(nadwyzka, skladka, liczba_powtorzen,
         if wynik[seed] > 0:
             wynik_dodatni.append(wynik[seed])
     sredni_wynik = sc.mean(wynik_dodatni)
+    odch_stand_wynik = sc.std(wynik_dodatni)
     prawd_bankr = bankructwo / liczba_powtorzen
-    return [bankructwo, prawd_bankr, sredni_wynik]
+    return [bankructwo, prawd_bankr, sredni_wynik, odch_stand_wynik]
 
 
 # ## 3. Symulacja
@@ -248,7 +259,9 @@ def wywolanie(nadwyzka, skladka, liczba_powtorzen,
 
 # zmienne i parametry w modelu:
 sr_wynik = [] # średni wynik finansowy firmy
+odch_stand_wynik = [] # Odch. stand. sredniego wyniku
 wysokosc_skladki = []
+wysokosc_nadwyzki = []
 prawd_bankr = []
 liczba_ruin = [] 
 
@@ -257,23 +270,55 @@ LICZBA_KLIENTOW = 100
 HORYZONT = 2 # dlugość obowiązywania umowy - zakładamy 2 lata
 
 
-for nadwyzka in range(10000, 20000, 10000):
-    for skladka in range(500, 1000, 100):
+for nadwyzka in range(10000, 30000, 10000):
+    for skladka in range(500, 2000, 100):
         wartosc_f_xy = wywolanie(nadwyzka, skladka, 
                                  LICZBA_POWTORZEN, LICZBA_KLIENTOW, 
                                  SREDNIA_LICZBA_SZKOD , SR_SZKODA_LN, 
                                  STD_SZKODA_LN, HORYZONT)
         wysokosc_skladki.append(skladka)
+        wysokosc_nadwyzki.append(nadwyzka)
         liczba_ruin.append(wartosc_f_xy[0])
         prawd_bankr.append(wartosc_f_xy[1])
         sr_wynik.append(wartosc_f_xy[2])
+        odch_stand_wynik.append(wartosc_f_xy[3])
         print("Nadwyzka: ", nadwyzka, "Skladka: ", skladka, 
               "Liczba ruin: ", wartosc_f_xy[0], "Sredni wynik: ",
               round(wartosc_f_xy[2]), "Prawd_bankr: ", wartosc_f_xy[1])
 
-plt.plot(wysokosc_skladki, prawd_bankr)
-plt.ylabel('Prawdopodobienstwo bankructwa')
-plt.show()
+dane = DataFrame.from_dict({'nadwyzka': wysokosc_nadwyzki,
+                            'skladka': wysokosc_skladki,
+                            'liczba_ruin': liczba_ruin,
+                            'prawd_bankr': prawd_bankr,
+                            'sr_wynik': sr_wynik,
+                            'odch_stand_wynik': odch_stand_wynik},
+        orient = 'columns')
+
+dane.set_index(['nadwyzka', 'skladka'], inplace = True)
+
+fig, ax = plt.subplots(figsize = (10,5))
+dane.loc[(10000,slice(None)),'prawd_bankr'].reset_index(). \
+    plot(x = 'skladka', y = 'prawd_bankr', legend = False, ax = ax)
+ax.set_xlabel('Wysokość składki [PLN]')
+ax.set_ylabel('Prawdopodobieństwo bankructwa')
+fig.savefig(path+r'\p_bankructwa.pdf')
+
+fig, ax = plt.subplots(figsize = (10,5))
+dane.loc[:,'prawd_bankr'].reset_index().groupby('nadwyzka'). \
+    plot(x = 'skladka', y = 'prawd_bankr', ax = ax)
+ax.set_xlabel('Wysokość składki [PLN]')
+ax.set_ylabel('Prawdopodobieństwo bankructwa')
+ax.legend(labels = ['10 000', '20 000'], title = 'Nadwyżka [PLN]')
+ax.axhline(y = 0.01, color = 'k' , linestyle = '--')
+fig.savefig(path+r'\p_bankructwa_porownanie.pdf')
+
+
+# Ponizej stary wykres p-stwa bankructwa (dla pojedynczej wys. nadwyzki)
+#fig = plt.figure(figsize = (10,5))
+#plt.plot(dane['wysokosc_skladki'], prawd_bankr)
+#plt.ylabel('Prawdopodobienstwo bankructwa')
+#plt.xlabel('Wysokość składki [PLN]')
+#fig.savefig(path+'\p_bankructwa.pdf')
 
 
 # ## RAPORT 
@@ -287,11 +332,32 @@ plt.show()
 # 4. Jaka powinna być nadwyżka i składka, żeby prawdopodobieństwo ruiny było mniejsze niż 0,01?
 # 5. Jak liczba symulacji wpływa na wyniki?
 
+# %%
+# Wykres sredniej koncowej nadwyzki dodatniej
+
+plotdata = dane.loc[(10000, slice(None)),['sr_wynik', 'odch_stand_wynik']]
+plotdata['upper'] = plotdata.sr_wynik + plotdata.odch_stand_wynik
+plotdata['lower'] = plotdata.sr_wynik - plotdata.odch_stand_wynik
+
+fig, ax = plt.subplots(figsize = (10,5))
+plotdata.reset_index().plot(x = 'skladka', y = 'upper', legend = False,
+                    ax = ax, kind = 'area', color = 'blue', alpha = 0.2)
+plotdata.reset_index().plot(x = 'skladka', y = 'lower', legend = False,
+                    ax = ax, kind = 'area', color = 'white')
+plotdata.reset_index().plot(x = 'skladka', y = ['sr_wynik', 'upper', 'lower'],
+                    legend = False, ax = ax, style = ['b', '--k', '--k'])
+ax.set_xlabel('Wysokość składki [PLN]')
+ax.set_ylabel('Średnia nadwyżka końcowa [PLN]')
+fig.savefig(path+r'\nadwyzka.pdf')
+
+
+# %% Porownanie dla kilku wysokosci nadwyzki
+
+
 # In[]:
 
 #Inny kod
 import numpy.random as rd
-import numpy as np
 
 def symuluj_ubezpieczenia(l_klientow,nadwyzka,skladka,srednia_l_szkod,sr_szkoda_ln,std_szkoda_ln):
     daty_umow = rd.randint(0,365, l_klientow)
