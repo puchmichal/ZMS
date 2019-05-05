@@ -1,0 +1,65 @@
+\documentclass[12pt, a4paper, oneside]{mwart} % Z automatu 10pt w przypisach
+\usepackage[utf8]{inputenc} % Znaki diakrytyczne z klawiatury
+\usepackage[OT4]{fontenc} % OT4 ponizej nie dzialalo
+\usepackage[plmath,MeX]{polski} % Ponoc lepsza polonizacja LaTeXa
+%\usepackage[dvips]{graphicx}
+\usepackage[pdftex]{color,graphicx} % Grafika w PDFowej formie
+%\usepackage{dcolumn} % Wyrownywanie przecinka w tabelach
+%\newcolumntype{d}[1]{D{.}{,}{#1}} % Typ kolumny do wyrownywania
+%\usepackage{threeparttable} % Coby ladnie podpisac tabelki
+%\usepackage{rotating} % for sidewaystable
+%\usepackage{subfig}
+
+\usepackage[pdftex]{hyperref} % Zarzadza hiperlaczami w dokumencie, ostatni w preambule, dvips/pdftex zaleznie od wyjscia
+
+\begin{document}
+\title{\includegraphics[width = 0.3 \textwidth]{wykresy/SGHlogotypCMYKpl.eps}\\
+\bigskip
+Zaawansowane Modelowanie Symulacyjne [234060-0723]\\ 
+\bigskip
+GWINTEX S.A.\\
+Symulacja linii produkującej korkociągi}
+\author{Anna Chojnacka, 68729 \and
+Michał Puchalski, 67827 \and
+Paweł Sadłowski, 68404 }
+\date{Warszawa, 7.05.2019}
+\maketitle
+
+\pagebreak
+
+\begin{abstract}
+Tutaj executive summary na koniec.
+\end{abstract}
+
+\pagebreak
+
+\section{Opis~organizacji}
+GWINTEX S.A. jest międzynarodowym organizacją zajmującą się produkcją korkociągów. Firma jest w pinierem w wykorzystaniu najnowszych technologii i zaawansowanych maszyn metalurgicznych. Przedsiębiorstwo dysponuje odpowiednimi środkami, aby przeprawadzić ekspransję.
+
+\section{Opis problemu}
+W związku z rosnącym popytem i coraz większą ilością spływających zamówieniń zarząd firmy GWINTEX S.A. planuje wybudować nową halę prodkcjyną, aby zwiększyć moce przerobowe. Celem prowadzonej symulacji jest ustalenie jaki będzie najefektywniejszy układ maszyn w nowej placówce oraz ile pakietów narzędzi naprawczych powinno być zakupione. Maszyny, które zarząd planuje kupić mają tendencję do psucia się, konieczne bedzie znalezienie rozwiązania, które minimalizuje czas, w którym maszyny nie pracują przy uwzględnieniu kosztówm. Dodatkowo została podjęta analiza wrażliwości obejmujące zabezpieczenie się na wypadek czarnego scenariusza w postaci spadku popytu w przyszłości oraz analiza opłacalności szkoleń dla pracowników, które pomogłyby skrócić czas naprawy psujących się maszyn.
+
+\subsection{Szczegółowy scenariusz symulacji}
+
+Firma GWINTEX~S.A. dysponuje historycznymi danymi dotyczącymi bezawarynego czasu pracy maszyn, mo on rozkład wykładniczy z wartością oczekiwaną równą 75 minut, wiemy również, że każda maszyna maswojego operatora, który obsługuje maszynę i ją naprawia. Na podstawie tych samych danych wiemy, że czas naprawy jest zmienną losową z rozkładu Erlanga, gdzie k=3 i wartością oczekiwaną wynoszącą 15 minut. Istatne jest to, że w zakładzie jest ograniczona licza zestawów narzędzie, które służą do naprawy maszyn. W momecie, w którym występuję usterka zestaw zostaje wysłany z magazynu do operatora, po ukończonej naprawie wraca do niego sporotem. Dopiero po zakończeniu całego procesu narzędzia mogą zostać ponownie wysłane do kolejnego operatora. We wszytskich analizach przyjeliśmy 30 dniowy horyzont czasowy to oszacowania kosztów związanych ze wszytskimi scenariuszami oraz każda scenariusz został powtórzony 1000 razy dla stabilności wyników,
+
+\subsection{Struktura modelu}
+Zgodnie z~terminologią zastosowaną przez Averilla Lawa (\cite{law}) zastosowany model jest przykładem symulacji zdarzeń dyskretnych (discrete-event simulation). Modelowanym zjawiskiem jest moment wystąpinia awarii dla każdej z maszyn(rozkład wykładniczy). Czas oczekiwania na narzędzie oraz czas naprawy maszyny(rozkład Erlanga) są liczony jako czas, w którym dana maszyna nie pracuje i nie produkuje korkociągów. W każdej iteracji symulowany jest cały horyzont czasowy (30 dni) dla wszystkich maszyn. Bez awaryjny czas każdej pracy, jak i czas naprawy są zmiennymi niezależnymi. Ostateczny wynik jest obliczany na podstawie sumy skumulowanych czasów spoczynku wszystkich urządzeń.
+
+
+
+\begin{thebibliography}{9}
+%\bibitem{slajdy}
+%P.~Szufel, \emph{Zaawansowane Modelowanie Symulacyjne --- materiały do~wykładu}
+\bibitem{law}
+Averill~M.~Law, W.~David~Kelton,
+\emph{Simulation Modeling \& Analysis},
+McGraw-Hill, wyd.~drugie, 1991
+\bibitem{case}
+P.~Wojewnik, \emph{Pitu case study}
+\bibitem{mielczarek}
+Bożena~Mielczarek, \emph{Modelowanie symulacyjne w~zarządzaniu. Symulacja dyskretna},
+Oficyna Wydawnicza Politechniki Wrocławskiej, Wrocław~2009
+\end{thebibliography}
+
+\end{document}
