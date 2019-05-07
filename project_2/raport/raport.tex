@@ -26,19 +26,17 @@ Paweł Sadłowski, 68404 }
 \date{Warszawa, 7.05.2019}
 \maketitle
 
-\pagebreak
-
 \begin{abstract}
-Tutaj executive summary na koniec.
+Przedmiotem raportu jest ustalenie najefektywniejszego układu maszyn w~nowej hali produkcyjnej firmy GWINTEX~S.A.~oraz ilości pakietów narzędzi naprawczych potrzebnych w~niej. Ostateczny wynik każdej iteracji modelu to~średnia łącznego czasu przestoju danej maszyny w~kolejnych iteracjach. Na~podstawie wyników symulacji rekomendujemy zakup dwóch zestawów narzędziowych do~nowej hali produkcyjnej, jeśli cena zestawu w zależności od układu nie przekracza, od~151.7 do~245~godzin przestoju w~ przeliczeniu na~maszynę miesięcznie. Warto też rozważyć zmianę układu z~liniowego na~wariant gwiazdowy, o~ile koszt tej zmiany nie przekroczy 23.5 ~godzin przestoju miesięcznie na~maszynę (6 godzin dla układu zmodyfikowanego). Jeśli próg opłacalności nie~zostanie spełniony, rekomendujemy wdrożenie zaproponowanej modyfikacji układu liniowego, która wypada lepiej od~wersji standardowej, a~w~sytuacji wyłączenia więcej niż 2~maszyn z~użytku generuje niższe koszty niż układ gniazdowy. Dodatkowo analiza wrażliwości wykazała, że szkolenia dla pracowników są opłacalne, gdy koszt skrócenia naprawy o~minutę nie~przekracza wartości ok.~6-godzinnego przestoju na~maszynę miesięcznie, zaś~zakup maszyn nowszej generacji jest zasadny, kiedy iloraz różnicy w~cenie oraz różnicy w~czasie bezawaryjnej pracy nie~przekracza kosztu 80-90~minut przestoju miesięcznie. 
 \end{abstract}
 
 \pagebreak
 
 \section{Opis~organizacji}
-GWINTEX S.A. to międzynarodowa organizacja zajmująca się produkcją korkociągów. Firma jest w pionierem w~wykorzystaniu najnowszych technologii i~zaawansowanych maszyn metalurgicznych. Już w~3~lata po~rozpoczęciu działalności jako niewielkie rodzinne przedsiębiorstwo GWINTEX~S.A. stał~się największym pracodawcą w~powiecie oraz jednym z~trzech najważniejszych graczy w~branży. Oferta obejmuje szeroką gamę korkociągów: od~najprostszych modeli wykonanych z~metalu bądź aluminium po kunsztownie zdobione egzemplarze. Aktualnie w~związku z~pokaźnym zasobem oszczędności oraz rosnącym portfelem zamówień zza granicy przedsiębiorstwo zamierza przeprowadzić ekspansję.
+GWINTEX S.A. to międzynarodowa organizacja zajmująca się produkcją korkociągów. Firma jest w pionierem w~wykorzystaniu najnowszych technologii i~zaawansowanych maszyn metalurgicznych. Już w~3~lata po~rozpoczęciu działalności jako niewielkie rodzinne przedsiębiorstwo, firma GWINTEX~S.A. stał~się największym pracodawcą w~powiecie oraz jednym z~trzech najważniejszych graczy w~branży. Oferta obejmuje szeroką gamę korkociągów: od~najprostszych modeli wykonanych z~metalu, bądź aluminium, po kunsztownie zdobione egzemplarze. Aktualnie, w~związku z~pokaźnym zasobem oszczędności oraz rosnącym portfelem zamówień zza granicy, przedsiębiorstwo zamierza przeprowadzić ekspansję.
 
 \section{Opis problemu}
-W związku z~rosnącym popytem i~coraz większą liczbą spływających zamówień zarząd firmy GWINTEX~S.A. planuje wybudować nową halę produkcyjną, aby zwiększyć moce przerobowe. Celem prowadzonej symulacji jest ustalenie, jaki będzie najefektywniejszy układ maszyn w nowej placówce oraz ile pakietów narzędzi naprawczych należy zakupić. Maszyny, które zarząd planuje nabyć, mają tendencję do psucia się, konieczne będzie zatem znalezienie rozwiązania minimalizującego czas, w którym maszyny nie pracują, przy uwzględnieniu kosztów. Dodatkowo została przeprowadzona analiza wrażliwości obejmująca zabezpieczenie się na wypadek czarnego scenariusza w postaci spadku popytu w przyszłości oraz analiza opłacalności szkoleń dla pracowników, które pomogłyby skrócić czas naprawy psujących się maszyn.
+W związku z~rosnącym popytem i~coraz większą liczbą spływających zamówień zarząd firmy GWINTEX~S.A. planuje wybudować nową halę produkcyjną, aby zwiększyć moce przerobowe. Celem prowadzonej symulacji jest ustalenie, jaki będzie najefektywniejszy układ maszyn w nowej placówce oraz ile pakietów narzędzi naprawczych należy zakupić. Maszyny, które zarząd planuje nabyć, mają tendencję do psucia się, konieczne będzie zatem znalezienie rozwiązania minimalizującego czas, w którym maszyny nie pracują, przy uwzględnieniu kosztów. Dodatkowo została przeprowadzona analiza wrażliwości obejmująca zabezpieczenie się na wypadek czarnego scenariusza w postaci spadku popytu w przyszłości,a także analiza opłacalności szkoleń dla pracowników, które pomogłyby skrócić czas naprawy psujących się maszyn, jak i zakupu nowych maszyn lepszej generacji.
 
 \subsection{Szczegółowy scenariusz symulacji}
 
@@ -103,7 +101,7 @@ Rozważany przez nas scenariusz zakłada możliwość odpowiedniego przeszkoleni
 \end{figure}
 
 \subsection{Czasowe wyłączenie maszyn z użytku}
-Przejściowy spadek liczby zamówień może wiązać się z~koniecznością czasowego wyłączenia pewnej liczby maszyn z~użytku. Przeprowadziliśmy zatem analizę, która miała za zadanie wyznaczyć optymalny układ w~przypadku gdy efektywnie eksploatowanych jest mniej niż 6~maszyn. Układ liniowy w~swojej standardowej wersji wypada korzystniej od gniazdowego wyłącznie w~przypadku gdy aktywna jest tylko jedna maszyna --- taki scenariusz należy raczej zakwalifikować jako mało prawdopodobny, ponieważ oznaczałby najprawdopodobniej bardzo znaczące problemy ze zbytem produktów. Przewaga układu gniazdowego maleje w~przybliżeniu liniowo wraz ze spadkiem liczby maszyn pozostających w~użyciu. Warto zauważyć, że zmodyfikowany układ liniowy jest nie~mniej efektywny od~gniazdowego jeśli pracują co~najwyżej 4~maszyny. Należy zatem wziąć pod~uwagę, że jeśli możliwe są przejściowe spadki produkcji, korzyści z~wdrożenia układu gniazdowego mogą okazać~się mniejsze od~spodziewanych, a~w~niektórych okresach schemat ten może okazać~się nawet droższy w~eksploatacji od swoich alternatyw. Dokładne wartości czasu przestoju w~poszczególnych wariantach można prześledzić na~wykresie~\ref{wyk_recesja}.
+Przejściowy spadek liczby zamówień może wiązać się z~koniecznością czasowego wyłączenia pewnej liczby maszyn z~użytku. Przeprowadziliśmy zatem analizę, która miała za zadanie wyznaczyć optymalny układ w~przypadku gdy efektywnie eksploatowanych jest mniej niż 6~maszyn. Układ liniowy w~swojej standardowej wersji wypada korzystniej od gniazdowego wyłącznie w~przypadku, gdy aktywna jest tylko jedna maszyna --- taki scenariusz należy raczej zakwalifikować jako mało prawdopodobny, ponieważ oznaczałby najprawdopodobniej bardzo znaczące problemy ze zbytem produktów. Przewaga układu gniazdowego maleje w~przybliżeniu liniowo wraz ze spadkiem liczby maszyn pozostających w~użyciu. Warto zauważyć, że zmodyfikowany układ liniowy jest nie~mniej efektywny od~gniazdowego jeśli pracują co~najwyżej 4~maszyny. Należy zatem wziąć pod~uwagę, że jeśli możliwe są przejściowe spadki produkcji, korzyści z~wdrożenia układu gniazdowego mogą okazać~się mniejsze od~spodziewanych, a~w~niektórych okresach schemat ten może okazać~się nawet droższy w~eksploatacji od swoich alternatyw. Dokładne wartości czasu przestoju w~poszczególnych wariantach można prześledzić na~wykresie~\ref{wyk_recesja}.
 \begin{figure}
 \centering
 \caption{Przeciętny miesięczny czas przestoju w~przeliczeniu na~maszynę}
@@ -112,7 +110,7 @@ Przejściowy spadek liczby zamówień może wiązać się z~koniecznością czas
 \end{figure}
 
 \subsection{Zakup maszyn nowszej generacji}
-Rozważany scenariusz zakłada zakup sprzętu, który charakteryzuje się niższą awaryjnością, w wyniku czego przeciętny czas pracy maszyn bez usterek jest wydłużony. Przeciętny czas bezawaryjnej pracy maszyny wynosił 75 minut. W naszej analizie został on rozszerzony o~wartości z~przedziału 1-14~minut. Jak widać na wykresie~\ref{wyk_bezawaryjna_praca}, dłuższy czas pomiędzy awariami, a co za tym idzie spadek kosztów, może być odpowiednio przybliżany przez funkcję liniową. Średnia poprawa czasu przestoju maszyny wynosi od 71 do 82 minut (miesięcznie) za każdą dodatkową minutę czasu pomiędzy awariami (dla układu liniowego wynosi 82 minuty, zmodyfikowanego liniowego – 75 minut; gniazdowego – 71 minut).
+Rozważany scenariusz zakłada zakup sprzętu, który charakteryzuje się niższą awaryjnością, w wyniku czego przeciętny czas pracy maszyn bez usterek jest wydłużony. Przeciętny czas bezawaryjnej pracy maszyny wynosił 75 minut. W naszej analizie został on rozszerzony o~wartości z~przedziału 1-14~minut. Jak widać na wykresie~\ref{wyk_bezawaryjna_praca}, dłuższy czas pomiędzy awariami, a co za tym idzie spadek kosztów, może być odpowiednio przybliżany przez funkcję liniową. Średnia poprawa czasu przestoju maszyny wynosi od 78 do 88 minut (miesięcznie) za każdą dodatkową minutę czasu pomiędzy awariami (dla układu liniowego wynosi 88 minuty, zmodyfikowanego liniowego – 81 minut; gniazdowego – 78 minut).
 \begin{figure}
 \centering
 \caption{Przeciętny czas przestoju dla~poszczególnych maszyn}
@@ -121,7 +119,7 @@ Rozważany scenariusz zakłada zakup sprzętu, który charakteryzuje się niższ
 \end{figure}
 
 \section{Wnioski}
-Podsumowując, rekomendujemy zakup dwóch zestawów narzędziowych do~nowej hali produkcyjnej. Warunkiem opłacalności tej decyzji jest cena pojedynczego zestawu nieprzekraczająca --- zależnie od~wybranego układu --- od~151.7 do~245~godzin przestoju miesięcznie w~przeliczeniu na~maszynę. Jeśli konieczna będzie dalsza redukcja tej wartości, należy rozważyć zmianę układu z~liniowego na~wariant gwiazdowy, jednak osiągalne korzyści są w~tym przypadku zauważalnie mniejsze. Rozwiązanie to~będzie tym bardziej atrakcyjne jeśli istotny jest równomierny rozkład czasu pracy pomiędzy eksploatowanymi maszynami. Jeśli próg opłacalności nie~zostanie spełniony, rekomendujemy wdrożenie zaproponowanej przez nas modyfikacji układu liniowego, która wypada jednoznacznie lepiej od~wersji standardowej, a~w~sytuacji wyłączenia więcej niż 2~maszyn z~użytku generuje niższe koszty niż układ gniazdowy. Analiza wrażliwości wykazała również, że szkolenia przyspieszające usuwanie usterek są opłacalne gdy koszt skrócenia naprawy o~minutę nie~przekracza wartości ok.~6-godzinnego przestoju w~przeliczeniu na~maszynę miesięcznie, zaś~inwestycja w~maszyny nowszej generacji jest uzasadniona o~ile iloraz różnicy w~cenie oraz różnicy w~czasie bezawaryjnej pracy nie~przekracza kosztu 70-80~minut przestoju miesięcznie. W~obu przypadkach dokładnie wartości zależą od~wdrożonego układu hali produkcyjnej i~zostały zaprezentowane powyżej.
+Podsumowując, rekomendujemy zakup dwóch zestawów narzędziowych do~nowej hali produkcyjnej. Warunkiem opłacalności tej decyzji jest cena pojedynczego zestawu nieprzekraczająca --- zależnie od~wybranego układu --- od~151.7 do~245~godzin przestoju miesięcznie w~przeliczeniu na~maszynę. Jeśli konieczna będzie dalsza redukcja tej wartości, należy rozważyć zmianę układu z~liniowego na~wariant gwiazdowy, jednak osiągalne korzyści są w~tym przypadku zauważalnie mniejsze. Rozwiązanie to~będzie tym bardziej atrakcyjne, jeśli istotny jest równomierny rozkład czasu pracy pomiędzy eksploatowanymi maszynami. Jeśli próg opłacalności nie~zostanie spełniony, rekomendujemy wdrożenie zaproponowanej przez nas modyfikacji układu liniowego, która wypada jednoznacznie lepiej od~wersji standardowej, a~w~sytuacji wyłączenia więcej niż 2~maszyn z~użytku generuje niższe koszty niż układ gniazdowy. Analiza wrażliwości wykazała również, że szkolenia przyspieszające usuwanie usterek są opłacalne, gdy koszt skrócenia naprawy o~minutę nie~przekracza wartości ok.~6-godzinnego przestoju w~przeliczeniu na~maszynę miesięcznie, zaś~inwestycja w~maszyny nowszej generacji jest uzasadniona o~ile iloraz różnicy w~cenie oraz różnicy w~czasie bezawaryjnej pracy nie~przekracza kosztu 80-90~minut przestoju miesięcznie. W~obu przypadkach dokładnie wartości zależą od~wdrożonego układu hali produkcyjnej i~zostały zaprezentowane powyżej.
 
 
 \begin{thebibliography}{9}
@@ -130,9 +128,10 @@ Podsumowując, rekomendujemy zakup dwóch zestawów narzędziowych do~nowej hali
 \bibitem{law}
 Averill~M.~Law, W.~David~Kelton,
 \emph{Simulation Modeling \& Analysis},
-McGraw-Hill, wyd.~drugie, 1991
-\bibitem{case}
-P.~Wojewnik, \emph{Pitu case study}
+McGraw-Hill, wyd.~piąte, 2015
+\bibitem{sayama}
+H.~Sayama, \emph{Introduction to the Modeling and Analysis of Complex Systems},
+Open SUNY Textbooks, 2015
 \bibitem{mielczarek}
 Bożena~Mielczarek, \emph{Modelowanie symulacyjne w~zarządzaniu. Symulacja dyskretna},
 Oficyna Wydawnicza Politechniki Wrocławskiej, Wrocław~2009
