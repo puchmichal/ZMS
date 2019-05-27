@@ -125,6 +125,7 @@ def model(
             # Some players stay, some leave, some grab a drink
             poker_table = np.random.randint(poker_table_size - 1)
             leavers = np.random.binomial(poker_table_size - poker_table, p_leave)
+            customer_count -= leavers
             if (poker_table_size - poker_table - leavers) > 0:
                 events.append(
                     (clock[0], 'Customer_drinks') * (poker_table_size - poker_table - leavers))
