@@ -1,0 +1,63 @@
+\documentclass[12pt, a4paper, oneside]{mwart} % Z automatu 10pt w przypisach
+\usepackage[utf8]{inputenc} % Znaki diakrytyczne z klawiatury
+\usepackage[OT4]{fontenc} % OT4 ponizej nie dzialalo
+\usepackage[plmath,MeX]{polski} % Ponoc lepsza polonizacja LaTeXa
+%\usepackage[dvips]{graphicx}
+\usepackage[pdftex]{color,graphicx} % Grafika w PDFowej formie
+%\usepackage{dcolumn} % Wyrownywanie przecinka w tabelach
+%\newcolumntype{d}[1]{D{.}{,}{#1}} % Typ kolumny do wyrownywania
+%\usepackage{threeparttable} % Coby ladnie podpisac tabelki
+%\usepackage{rotating} % for sidewaystable
+\usepackage{subcaption}
+\captionsetup{compatibility=false}
+
+\usepackage[pdftex]{hyperref} % Zarzadza hiperlaczami w dokumencie, ostatni w preambule, dvips/pdftex zaleznie od wyjscia
+
+\begin{document}
+\title{\includegraphics[width = 0.3 \textwidth]{wykresy/SGHlogotypCMYKpl.eps}\\
+\bigskip
+Zaawansowane Modelowanie Symulacyjne [234060-0723]\\ 
+\bigskip
+Saloon "Wild West"\\
+Symulacja baru na Dzikim Zachodzie}
+\author{Anna Chojnacka, 68729 \and
+Michał Puchalski, 67827 \and
+Paweł Sadłowski, 68404 }
+\date{Warszawa, 4.06.2019}
+\maketitle
+
+\pagebreak
+
+\section{Opis~organizacji}
+Saloon „Wild West” to szczególny rodzaj baru proponujący należyty odpoczynek oraz rozrywkę strudzonym wędrowcom starego Zachodu. Bar nie ma sobie równych jeśli chodzi o najlepszą obsługę klientów. Jego barmani oraz barmanki mogą poszczycić się najlepszym ~w Kansas umiejętnościami nalewania trunków, ~a na stołach pokerowych barów gracze mogą znacznie się wzbogacić lub stracić oszczędności życia. Aktualnie, ~w związku z otwarciem nowych salonów na drodze prowadzącej do Leavenworth, właściciel baru stoi przed ważnymi decyzjami, które zadecydują ~o przyszłości salonu.
+
+\section{Opis problemu}
+W związku z rosnącą konkurencją oraz spadkiem wizerunku baru, właściciel salonu poszukuje odpowiedniej strategii, która pozwoli mu zachować opinię najlepszego baru na Dzikim Zachodzie, ~a tym samym utrzymać klientele, jak ~i zwiększyć zysk z interesu. Zakres analizy obejmuje ocenę wrażliwości wysokości ceny drinków w barze, jak ~i polepszenia wystroju baru. Została również przeprowadzona analiza dotycząca wpływu liczby danej płci barmanów oraz ich wyglądu na końcowy zysk salonu.
+
+\subsection{Szczegółowy scenariusz symulacji}
+Salon jest otwarty przez pewną liczbę godzin na dobę. Właściciel baru rekomenduje przybliżanie liczby klientów przez rozkład Poissona. Każdy klient wybiera jedną ~z dwóch opcji: bycie obsługiwany za barem lub dołączenie się do partyjki pokera. Na czas obsługi klienta składa się długość trwania serwisu oraz długość flirtu ~z personelem losowana z rozkładu jednostajnego. Długość picia drinka opisuje rozkład wykładniczy, natomiast na zysk ~z każdego napoju składa się cena napoju oraz wielkość napiwku losowana ~z rozkładu Gamma. Jeżeli wszyscy barmani są zajęci, klient musi czekać w kolejce by zostać obsłużonym. Jeżeli czas oczekiwania na obsługę przy barze przekroczy próg cierpliwości klienta, ~z rozkładu jednostajnego losujemy prawdopodobieństwo, że klient rozpęta awanturę ~i zacznie się strzelanina, albo będzie czekał dalej cierpliwie na serwis lub ~z niego zrezygnuje. Po obsłudze klient może podjąć trzy decyzje: opuszczenie lokalu, wypicie następnego drinka lub dołączenie się do partyjki pokera. Rozpoczęcie rozgrywki pokera jest możliwe, gdy przy stole zbierze się 5 graczy, a długość jednej partii wynosi 10 minut. Po rozegraniu partii następuje jedna ~z trzech opcji: przegrany rozpoczyna strzelaninę, wygrany stawia wszystkim kolejkę albo gracze podejmują zwykłe decyzje ~o ponownej grze, wypiciu drinka lub opuszczeniu salonu. Każda strzelanina przynosi spore straty salonowi ~w wysokości 50 dolarów, ~a dodatkowo w jej wyniku ~z prawdopodobieństwem losowanym ~z rozkładu jednostajnego może zginąć pianista, którego wartość rynkowa wynosi 100 dolarów. Jednakże rozpętaniu strzelaniny ~z łatwością może zaprzestać szeryf. ~Z rozkładu jednostajnego losowana jest pora przybycia szeryfa do baru. Jeżeli szeryf jest obecny w barze, strzelaniny nie będzie. Strzelanina kończy symulację. We wszystkich analizach zostały przyjęty jednodniowy horyzont czasowy symulacji. Dla zapewnienia stabilności wyników wygenerowano 1000 symulacji dla każdego scenariusza.
+
+\subsection{Struktura modelu}
+
+\section{Wyniki analizy}
+
+\section{Analiza wrażliwości}
+
+\section{Wnioski}
+
+\begin{thebibliography}{9}
+%\bibitem{slajdy}
+%P.~Szufel, \emph{Zaawansowane Modelowanie Symulacyjne --- materiały do~wykładu}
+\bibitem{law}
+Averill~M.~Law, W.~David~Kelton,
+\emph{Simulation Modeling \& Analysis},
+McGraw-Hill, wyd.~piąte, 2015
+\bibitem{sayama}
+H.~Sayama, \emph{Introduction to the Modeling and Analysis of Complex Systems},
+Open SUNY Textbooks, 2015
+\bibitem{mielczarek}
+Bożena~Mielczarek, \emph{Modelowanie symulacyjne w~zarządzaniu. Symulacja dyskretna},
+Oficyna Wydawnicza Politechniki Wrocławskiej, Wrocław~2009
+\end{thebibliography}
+
+\end{document}
