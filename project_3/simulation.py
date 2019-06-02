@@ -25,6 +25,7 @@ def model(
         drink_price,  # $
         avg_tip,  # $
         patience_threshold,  # mins
+        pmin_queue_shootout,
         p_queue_shootout,
         p_pianist_killed,
         pianist_net_worth,  # $
@@ -41,7 +42,8 @@ def model(
 
     sheriff_entry = np.random.uniform() * time_horizon
     events = [(np.random.exponential(customer_lambda), 'Customer_choice', 'new'),
-              (sheriff_entry, 'Sheriff_entry'), (sheriff_entry + 60, 'Sheriff_exit')]
+              (sheriff_entry, 'Sheriff_entry'), (sheriff_entry + 60, 'Sheriff_exit'),
+             (240, 'Lambda_down')]
     revenue = 0
     customer_count = 0
     poker_table = 0
@@ -93,13 +95,19 @@ def model(
                     waiting_time = min(waiting_time, x[1])
                     # Can we handle waiting within the same loop without creating an extra iteration?
 
-            # If no bartender, wait in line
+            # If no bartender, wait at the bar
             if waiting_time:
-                if waiting_time - clock[0] > patience_threshold:
-                    if np.random.uniform() < p_queue_shootout:
+                # Calculate cumulative waiting time
+                try:
+                    time_in_queue = clock[2] + waiting_time - clock[0]
+                except IndexError:
+                    time_in_queue = waiting_time - clock[0]
+                # Determine if client gets nervous
+                if time_in_queue > patience_threshold:
+                    if np.random.uniform() < max(pmin_queue_shootout, clock[0] / 600 * p_queue_shootout):
                         events.append((clock[0] + patience_threshold, 'Shootout'))
                 else:
-                    events.append((waiting_time, 'Customer_drinks'))
+                    events.append((waiting_time, 'Customer_drinks', time_in_queue))
 
         elif clock[1] == 'Sheriff_entry':
             sheriff_present = True
@@ -109,7 +117,8 @@ def model(
 
         elif clock[1] == 'Shootout':
             if not sheriff_present:
-                revenue -= shootout_loss + (
+                event_history.append(clock)
+                revenue -= shootout_loss * max(1, np.log(clock[0]) / np.log(420)) + (
                             np.random.uniform() < p_pianist_killed) * pianist_net_worth
                 return revenue, event_history
         # Decide on scenario handling here
@@ -123,12 +132,15 @@ def model(
                 # The winner buys everybody a round
                 revenue += customer_count * drink_price
             # Some players stay, some leave, some grab a drink
-            poker_table = np.random.randint(poker_table_size - 1)
+            poker_table = np.random.randint(poker_table_size)
             leavers = np.random.binomial(poker_table_size - poker_table, p_leave)
             customer_count -= leavers
             if (poker_table_size - poker_table - leavers) > 0:
                 events.append(
                     (clock[0], 'Customer_drinks') * (poker_table_size - poker_table - leavers))
+        
+        elif clock[1] == 'Lambda_down':
+            customer_lambda -= 5 # Avg time between new customers 5 mins shorter
 
         event_history.append(clock)
         # Get next event
@@ -139,7 +151,7 @@ def model(
 
 def run_simulation(
         n_simulations,
-        time_horizon=24 * 60,
+        time_horizon=10 * 60,
         bartenders=(False, True),
         customer_lambda=25,
         p_drink=0.9,
@@ -147,17 +159,18 @@ def run_simulation(
         flirt_time=15,
         drink_time=35,
         drink_price=2,
-        avg_tip=5,
+        avg_tip=1,
         patience_threshold=15,
-        p_queue_shootout=0.01,
-        p_pianist_killed=0.03,
-        pianist_net_worth=100,
-        shootout_loss=50,
+        pmin_queue_shootout=0.03,
+        p_queue_shootout=0.06,
+        p_pianist_killed=0.05,
+        pianist_net_worth=450,
+        shootout_loss=200,
         poker_table_size=5,
         poker_length=10,
         p_leave=0.1,
-        p_lost_everything=0.05,
-        p_jackpot=0.1,
+        p_lost_everything=0.02,
+        p_jackpot=0.04,
 ):
     revenues = np.zeros(n_simulations)
     event_histories = []
@@ -174,6 +187,7 @@ def run_simulation(
                 drink_price=drink_price,
                 avg_tip=avg_tip,
                 patience_threshold=patience_threshold,
+                pmin_queue_shootout=pmin_queue_shootout,
                 p_queue_shootout=p_queue_shootout,
                 p_pianist_killed=p_pianist_killed,
                 pianist_net_worth=pianist_net_worth,
