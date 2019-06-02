@@ -29,19 +29,64 @@ Paweł Sadłowski, 68404 }
 \pagebreak
 
 \section{Opis~organizacji}
-Saloon „Wild West” to szczególny rodzaj baru proponujący należyty odpoczynek oraz rozrywkę strudzonym wędrowcom starego Zachodu. Bar nie ma sobie równych jeśli chodzi o najlepszą obsługę klientów. Jego barmani oraz barmanki mogą poszczycić się najlepszym ~w Kansas umiejętnościami nalewania trunków, ~a na stołach pokerowych barów gracze mogą znacznie się wzbogacić lub stracić oszczędności życia. Aktualnie, ~w związku z otwarciem nowych salonów na drodze prowadzącej do Leavenworth, właściciel baru stoi przed ważnymi decyzjami, które zadecydują ~o przyszłości salonu.
+Saloon „Wild West” to szczególny rodzaj baru proponujący należyty odpoczynek oraz rozrywkę strudzonym wędrowcom starego Zachodu. Bar nie ma sobie równych jeśli chodzi o najlepszą obsługę klientów. Jego barmani oraz barmanki mogą poszczycić się najlepszym ~w Kansas umiejętnościami nalewania trunków, a~ na stołach pokerowych barów gracze mogą znacznie się wzbogacić lub stracić oszczędności życia. Aktualnie, w~ związku z otwarciem nowych salonów na drodze prowadzącej do Leavenworth, właściciel baru stoi przed ważnymi decyzjami, które zadecydują o~ przyszłości salonu.
 
 \section{Opis problemu}
-W związku z rosnącą konkurencją oraz spadkiem wizerunku baru, właściciel salonu poszukuje odpowiedniej strategii, która pozwoli mu zachować opinię najlepszego baru na Dzikim Zachodzie, ~a tym samym utrzymać klientele, jak ~i zwiększyć zysk z interesu. Zakres analizy obejmuje ocenę wrażliwości wysokości ceny drinków w barze, jak ~i polepszenia wystroju baru. Została również przeprowadzona analiza dotycząca wpływu liczby danej płci barmanów oraz ich wyglądu na końcowy zysk salonu.
+W związku z rosnącą konkurencją oraz spadkiem wizerunku baru, właściciel salonu poszukuje odpowiedniej strategii, która pozwoli mu zachować opinię najlepszego baru na Dzikim Zachodzie, a~ tym samym utrzymać klientele, jak i~ zwiększyć zysk z interesu. Zakres analizy obejmuje ocenę wrażliwości wysokości ceny drinków w barze, jak i~ polepszenia wystroju baru. Została również przeprowadzona analiza dotycząca wpływu liczby danej płci barmanów oraz ich wyglądu na końcowy zysk salonu.
 
 \subsection{Szczegółowy scenariusz symulacji}
-Salon jest otwarty przez pewną liczbę godzin na dobę. Właściciel baru rekomenduje przybliżanie liczby klientów przez rozkład Poissona. Każdy klient wybiera jedną ~z dwóch opcji: bycie obsługiwany za barem lub dołączenie się do partyjki pokera. Na czas obsługi klienta składa się długość trwania serwisu oraz długość flirtu ~z personelem losowana z rozkładu jednostajnego. Długość picia drinka opisuje rozkład wykładniczy, natomiast na zysk ~z każdego napoju składa się cena napoju oraz wielkość napiwku losowana ~z rozkładu Gamma. Jeżeli wszyscy barmani są zajęci, klient musi czekać w kolejce by zostać obsłużonym. Jeżeli czas oczekiwania na obsługę przy barze przekroczy próg cierpliwości klienta, ~z rozkładu jednostajnego losujemy prawdopodobieństwo, że klient rozpęta awanturę ~i zacznie się strzelanina, albo będzie czekał dalej cierpliwie na serwis lub ~z niego zrezygnuje. Po obsłudze klient może podjąć trzy decyzje: opuszczenie lokalu, wypicie następnego drinka lub dołączenie się do partyjki pokera. Rozpoczęcie rozgrywki pokera jest możliwe, gdy przy stole zbierze się 5 graczy, a długość jednej partii wynosi 10 minut. Po rozegraniu partii następuje jedna ~z trzech opcji: przegrany rozpoczyna strzelaninę, wygrany stawia wszystkim kolejkę albo gracze podejmują zwykłe decyzje ~o ponownej grze, wypiciu drinka lub opuszczeniu salonu. Każda strzelanina przynosi spore straty salonowi ~w wysokości 50 dolarów, ~a dodatkowo w jej wyniku ~z prawdopodobieństwem losowanym ~z rozkładu jednostajnego może zginąć pianista, którego wartość rynkowa wynosi 100 dolarów. Jednakże rozpętaniu strzelaniny ~z łatwością może zaprzestać szeryf. ~Z rozkładu jednostajnego losowana jest pora przybycia szeryfa do baru. Jeżeli szeryf jest obecny w barze, strzelaniny nie będzie. Strzelanina kończy symulację. We wszystkich analizach zostały przyjęty jednodniowy horyzont czasowy symulacji. Dla zapewnienia stabilności wyników wygenerowano 1000 symulacji dla każdego scenariusza.
+Salon jest otwarty przez pewną liczbę godzin na dobę. Właściciel baru rekomenduje przybliżanie liczby klientów przez rozkład Poissona. Każdy klient wybiera jedną z~ dwóch opcji: bycie obsługiwany za barem lub dołączenie się do partyjki pokera. Na czas obsługi klienta składa się długość trwania serwisu oraz długość flirtu z~ personelem losowana z rozkładu jednostajnego. Długość picia drinka opisuje rozkład wykładniczy, natomiast na zysk z~ każdego napoju składa się cena napoju oraz wielkość napiwku losowana z~ rozkładu Gamma. Jeżeli wszyscy barmani są zajęci, klient musi czekać w kolejce by zostać obsłużonym. Jeżeli czas oczekiwania na obsługę przy barze przekroczy próg cierpliwości klienta, z~ rozkładu jednostajnego losujemy prawdopodobieństwo, że klient rozpęta awanturę i~ zacznie się strzelanina, albo będzie czekał dalej cierpliwie na serwis lub z~ niego zrezygnuje. Po obsłudze klient może podjąć trzy decyzje: opuszczenie lokalu, wypicie następnego drinka lub dołączenie się do partyjki pokera. Rozpoczęcie rozgrywki pokera jest możliwe, gdy przy stole zbierze się 5 graczy, a długość jednej partii wynosi 10 minut. Po rozegraniu partii następuje jedna z~ trzech opcji: przegrany rozpoczyna strzelaninę, wygrany stawia wszystkim kolejkę albo gracze podejmują zwykłe decyzje o~ ponownej grze, wypiciu drinka lub opuszczeniu salonu. Każda strzelanina przynosi spore straty salonowi w~ wysokości 50 dolarów, a~ dodatkowo w jej wyniku z~ prawdopodobieństwem losowanym z~ rozkładu jednostajnego może zginąć pianista, którego wartość rynkowa wynosi 100 dolarów. Jednakże rozpętaniu strzelaniny z~ łatwością może zaprzestać szeryf. Z~ rozkładu jednostajnego losowana jest pora przybycia szeryfa do baru. Jeżeli szeryf jest obecny w barze, strzelaniny nie będzie. Strzelanina kończy symulację. We wszystkich analizach zostały przyjęty jednodniowy horyzont czasowy symulacji. Dla zapewnienia stabilności wyników wygenerowano 1000 symulacji dla każdego scenariusza.
 
 \subsection{Struktura modelu}
 
 \section{Wyniki analizy}
+Wyniki przeprowadzonych symulacji, których podstawą było 1000 iteracji modelu, szacują średni przychód baru na poziomie 830,96 \$ na dzień, a odchylenie na poziomie 290,57 \$. Wykres \ref{wyk_przychod} ilustruje rozkład wysokości przychodu z jednodniowej działalności baru. Najwyższe odseteki zmiennej stanowią wartości z przybliżonego przedziału od 900 do 1000\$.
+
+\subsection{Liczba zatrudnionych barmanów}
+Wyniki analizy jednoznacznie wskazują, że zatrudnianie kolejnych barmanek jest o wiele bardziej opłacalne niż zatrudnianie kolejnych barmanów. Posiadanie tylko męskiego personelu oznaczałoby dla baru przychód w wysokości od 407.17 do 480.19 \$, jednakże posiadanie tylko barmanek przyniosłoby dzienne przychody w wysokości od 530.11 do aż 1642.38 \$ (od 30 do 242 \% większy zysk z działalności). Wnioski te można odczytać z analizy mapy cieplnej (rysunek \ref{wyk_barmani}), na której zilustrowano wysokość przychodu w zależności od zróżnicowania płciowego personelu. Wyraźnie widać, że zysk z działalności salonu znacznie szybciej rośnie, gdy zostaje zatrudniona kolejna barmanka. Podobnie zadowalające wyniki otrzymujemy, kiedy bar zatrudnia do dwóch barmanów, a resztę personelu stanowią kobiety; wtedy dla najwyższych wartości różnice w przychodach nie przekraczają różnicy 26\%.
+\begin{figure}
+\centering
+\caption{Rozkład wysokości przychodu z działalności salonu}
+\label{wyk_przychod}
+\includegraphics[width = 0.9\textwidth]{wykresy/histogram.pdf}
+\end{figure}
+
+\begin{figure}
+\centering
+\caption{Prognozowana wielkość przychodu w zależności od zróżnicowania płciowego personelu}
+\label{wyk_barmani}
+\includegraphics[width = 0.9\textwidth]{wykresy/barmani.pdf}
+\end{figure}
+
+\subsection{Wybór strategii cenowej}
+Drugim parametrem, który ma znaczny wpływ na przychód salonu jest cena drinków na barze. Zostały wzięte pod uwagę trzy strategie cenowe: strategia umiarkowanych cen, gdzie koszt napoju wynosi 2 \$, strategia droższych drinków, gdzie koszt alkoholu wynosiłby 4 \$ oraz strategia tanich drinków, gdzie drink na barze kosztowałby tylko 1 \$. Wykres \ref{wyk_drinki} obrazuje prognozowany przeciętny przychód baru oraz jego odchylenie standardowe z zaproponowanych strategii. Prawie 1.6 razy wyższy przychód uzyskuje bar, jeśli obierze strategię droższych drinków zamiast strategii umiarkowanych cen, jednakże odchylenie standardowe zmiennej jest o prawie tyle samo większe pomiędzy strategiami (1.54 razy wyższe). Strategia tanich drinków jest gorsza w każdym aspekcie od strategii umiarkowanej, pomimo iż przyciąga więcej klientów do baru.
+
+\begin{figure}
+\centering
+\caption{Przecięta wielkość przychodu oraz jego odchylenie standardowe w zależności od przyjętej strategii cenowej}
+\label{wyk_drinki}
+\includegraphics[width = 0.9\textwidth]{wykresy/drinki.pdf}
+\end{figure}
+
+\begin{figure}
+\centering
+\caption{Przecięta wielkość przychodu oraz jego odchylenie standardowe w zależności od wielkości stołu pokerowego}
+\label{wyk_poker}
+\includegraphics[width = 0.9\textwidth]{wykresy/poker.pdf}
+\end{figure}
+
+\subsection{Wybór optymalnej wielkości stołu do pokera}
+Na przychód salonu znacznie również wpływa gra w pokera, a co za tym idzie wielkość stołu do gry oraz czas spędzony przez klientów na grze. Możliwy jest zakup czterech różnych rozmiarów stołu, przy którym kolejno pomieściłoby się od 5 do 8 graczy. Każdy dodatkowy gracz przy stole oznacza rozgrywkę trwającą 5 minut dłużej. Na wykresie \ref{wyk_poker} został zaprezentowany przeciętny przychód oraz odchylenie standardowe, dla każdej proponowanej wielkości stołu do pokera. Jak łatwo zauważyć, zwiększanie liczby dostępnych miejsc przy stole pokerowym nie prowadzi do znaczącego wzrostu przychodu. Dodatkowo należy pamiętać, że zakup większego stołu wiąże się prawdopodobnie z wyższymi kosztami mebla, co może być problematyczne dla właściciela baru, jeśli mebel uległby szybkiej eksploatacji czy zniszczeniu podczas strzelaniny.
+
 
 \section{Analiza wrażliwości}
+
+\subsection{Zatrudnianie ładniejszych barmanek}
+
+\subsection{Strzelaniny}
+
+\subsection{Zajęcie w kolejce}
+
 
 \section{Wnioski}
 
