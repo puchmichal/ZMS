@@ -18,7 +18,7 @@
 \bigskip
 Zaawansowane Modelowanie Symulacyjne [234060-0723]\\ 
 \bigskip
-Saloon "Wild West"\\
+Salon "Wild West"\\
 Symulacja baru na Dzikim Zachodzie}
 \author{Anna Chojnacka, 68729 \and
 Michał Puchalski, 67827 \and
@@ -26,10 +26,14 @@ Paweł Sadłowski, 68404 }
 \date{Warszawa, 4.06.2019}
 \maketitle
 
+\begin{abstract}
+Przedmiotem raportu jest ustalenie najlepszej strategii do zaimplementowania dla właściciela salonu „Wild West”. Ostateczny wynik symulacji to suma zysku ze sprzedawanych drinków pomniejszona o ewentualne straty poniesione w razie zaistniałej strzelaniny. Na podstawie wyników symulacji rekomendujemy zatrudnienie do sześciu pracowników baru. Warto rozważyć zmianę ceny drinków i zwiększyć ją z 2 do 4\$. Kupno większych stołów do pokera niż tych dla 5 graczy uznano za nieopłacalne. Dodatkowo analiza wrażliwości wykazała, że zatrudnianie atrakcyjnego personelu może znacznie poprawić średnie dochody baru. Z drugiej strony, zaniedbywanie czynników wpływających na obniżanie się progu cierpliwości klientów może znacznie zaszkodzić średnim zyskom baru. Została zasugerowana inwestycja w znaczną poprawę jakości wystroju baru. 
+\end{abstract}
+
 \pagebreak
 
 \section{Opis~organizacji}
-Saloon „Wild West” to szczególny rodzaj baru proponujący należyty odpoczynek oraz rozrywkę strudzonym wędrowcom starego Zachodu. Bar nie ma sobie równych jeśli chodzi o najlepszą obsługę klientów. Jego barmani oraz barmanki mogą poszczycić się najlepszymi~w Kansas umiejętnościami nalewania trunków, a~przy~stołach pokerowych niejeden znużony robotnik czy rewolwerowiec stawia na~szali dorobek życia w~nadziei na~szybką fortunę. Aktualnie, w~związku z~otwarciem nowych salonów na drodze prowadzącej do Leavenworth, właściciel baru stoi przed ważnymi decyzjami, które zadecydują o~przyszłości saloonu.
+Salon „Wild West” to szczególny rodzaj baru proponujący należyty odpoczynek oraz rozrywkę strudzonym wędrowcom starego Zachodu. Bar nie ma sobie równych jeśli chodzi o najlepszą obsługę klientów. Jego barmani oraz barmanki mogą poszczycić się najlepszymi~w Kansas umiejętnościami nalewania trunków, a~przy~stołach pokerowych niejeden znużony robotnik czy rewolwerowiec stawia na~szali dorobek życia w~nadziei na~szybką fortunę. Aktualnie, w~związku z~otwarciem nowych salonów na drodze prowadzącej do Leavenworth, właściciel baru stoi przed ważnymi decyzjami, które zadecydują o~przyszłości saloonu.
 
 \section{Opis problemu}
 W związku z rosnącą konkurencją oraz spadkiem wizerunku baru, właściciel saloonu poszukuje odpowiedniej strategii, która pozwoli mu zachować opinię najlepszego baru na Dzikim Zachodzie, a~tym samym utrzymać klientelę, jak i~zwiększyć zysk z~interesu. Zakres analizy obejmuje ocenę wrażliwości wysokości ceny drinków w barze, jak i~polepszenia wystroju baru. Została również przeprowadzona analiza dotycząca wpływu liczby danej płci barmanów oraz ich wyglądu na końcowy zysk salonu.
@@ -41,10 +45,7 @@ Salon jest otwarty przez pewną liczbę godzin na dobę. Właściciel baru rekom
 Przybycie kolejnych klientów opisywane jest procesem Poissona, zatem czas pomiędzy odwiedzinami kolejnych gości losowany jest z~rozkładu wykładniczego o~średniej równej 25~minut. Wieczorową porą chętnych na~odpoczynek i~pogawędkę jest więcej --- od~godziny 20:00 kolejni klienci pojawiają się przeciętnie co~20~minut. Z~prawdopodobieństwem 90\% klient udaje się do~baru, w~pozostałych przypadkach siada przy~stole pokerowym, o~ile są~jeszcze wolne miejsca. Standardowy czas obsługi klienta wynosi 5~minut, przedłuży się on~jednak o~wartość z~rozkładu jednostajnego na~przedziale 0-15~minut, gdy rewolwerowiec ma~do czynienia z~barmanką, której spróbuje się przypodobać. Zysk na~sprzedaży jednego drinka wynosi 2~dolary, napiwki są~losowane z~rozkładu Gamma z~parametrami $k = 5, \theta = 1$, co~daje przeciętną wysokość napiwku równą 5~dolarów. Średni czas picia drinka wynosi 35~minut, zaś próg cierpliwości klientów został wyjściowo ustalony na~poziomie 15~minut. Prawdopodobieństwo awantury w~kolejce wynosi co~najmniej 3\% i~od~godziny~21:00 rośnie liniowo z~upływem czasu. Każdy ze~skrajnych wyników partii pokera występuje z~prawdopodobieństwem równym 2\%. Liczba graczy gotowych do~rozpoczęcia kolejnej partii jest losowana z~rozkładu jednostajnego, zawsze jednak przynajmniej jeden z~graczy rezygnuje z~dalszej gry. Po wypiciu drinka bądź zakończeniu rozgrywki w~pokera klient opuszcza saloon z~prawdopodobieństwem 10\%. Strzelanina jest tym groźniejsza, im więcej alkoholu zdążyli wypić obecni wewnątrz goście --- straty rosną logarytmicznie od~godziny 23:00. Końcowy wynik baru stanowi suma zysku ze sprzedanych drinków oraz napiwków pomniejszona o~ewentualne straty wynikłe w~razie strzelaniny.
 
 \section{Wyniki analizy}
-Wyniki przeprowadzonych symulacji, których podstawą było 1000 iteracji modelu, szacują średni przychód baru na poziomie 174.95 \$ na dzień, a odchylenie na poziomie 108.47 \$. Wykres \ref{wyk_przychod} ilustruje rozkład wysokości przychodu z jednodniowej działalności baru. Najwyższe odseteki zmiennej stanowią wartości z przybliżonego przedziału od 190 do 230\$.
-
-\subsection{Liczba zatrudnionych barmanów}
-Wyniki analizy jednoznacznie wskazują, że zatrudnianie kolejnych barmanek jest o wiele bardziej opłacalne niż zatrudnianie kolejnych barmanów. Posiadanie tylko męskiego personelu oznaczałoby dla baru przychód w wysokości od 95.85 do 182.05 \$, jednakże posiadanie tylko barmanek (w liczbie od 2 do 10) przyniosłoby dzienne przychody w wysokości od 117.17 \$ do aż 271.75 \$ (posiadanie tylko jednego pracownika, którym byłaby kobieta wiąże się ze stratami w wysokości 5.87 \$). Wnioski te można odczytać z analizy mapy cieplnej (rysunek \ref{wyk_barmani}), na której zilustrowano wysokość przychodu w zależności od zróżnicowania płciowego personelu. Wyraźnie widać, że zysk z działalności salonu znacznie szybciej rośnie, gdy zostaje zatrudniona kolejna barmanka. Warto rozważyć optymalną różnorodność płciową personelu przy założeniu, że bar zatrudnia $n$ barmanów (przy założeniu równych płac). Dokładne wyniki analizy można zaobserwować na mapie cieplnej (rysunek \ref{wyk_barmani2}). Im intensywniejszy odcień niebieskiego (czerwonego), tym wyższy wzrost (spadek) średniego zysku względem $n-1$ liczby zatrudnionych barmanów. Kolor biały wyznacza kombinacje nieoptymalne. Najbardziej optymalną strategią dla baru będzie zatrudnienie najpierw mężczyzny, a następnie zatrudnienie dwóch barmanek. Od $n =4$ do $n=9$ opłaca się salonowi posiadać już tylko żeński personel. Jednakże, zatrudnianie kolejnych barmanów powyżej $n=5$ będzie przynosił niewielkie zyski lub straty z działalności baru. 
+Wyniki przeprowadzonych symulacji, których podstawą było 1000 iteracji modelu, szacują średni przychód baru na poziomie 178.08\$ na dzień, a odchylenie na poziomie 125.64\$. Wykres \ref{wyk_przychod} ilustruje rozkład wysokości przychodu z jednodniowej działalności baru. Najwyższe odseteki zmiennej stanowią wartości z przybliżonego przedziału od 210 do 260\$.
 
 \begin{figure}
 \centering
@@ -53,53 +54,78 @@ Wyniki analizy jednoznacznie wskazują, że zatrudnianie kolejnych barmanek jest
 \includegraphics[width = 0.9\textwidth]{wykresy/histogram.pdf}
 \end{figure}
 
+\subsection{Liczba zatrudnionych barmanów}
+Wyniki analizy jednoznacznie wskazują, że zatrudnianie kolejnych barmanek jest o wiele bardziej opłacalne niż zatrudnianie kolejnych barmanów. Posiadanie tylko męskiego personelu oznaczałoby dla baru przychód w wysokości od 106.19 do 173.20\$, jednakże posiadanie tylko barmanek przyniosłoby dzienne przychody w wysokości od 10.37\$ do aż 278.82\$. Wnioski te można odczytać z analizy mapy cieplnej (rysunek \ref{wyk_barmani}), na której zilustrowano wysokość przychodu w zależności od zróżnicowania płciowego personelu. Wyraźnie widać, że zysk z działalności salonu znacznie szybciej rośnie, gdy zostaje zatrudniona kolejna barmanka. Warto rozważyć optymalną różnorodność płciową personelu przy założeniu, że bar zatrudnia $n$ barmanów (przy założeniu równych płac). Dokładne wyniki analizy można zaobserwować na mapie cieplnej (rysunek \ref{wyk_opt_sciezka}). Im intensywniejszy odcień niebieskiego (czerwonego), tym wyższy wzrost (spadek) średniego zysku względem $n-1$ liczby zatrudnionych barmanów. Kolor biały wyznacza kombinacje nieoptymalne. Najbardziej optymalną strategią dla baru będzie zatrudnienie najpierw kolejno dwóch mężczyzny, a następnie zatrudnianie barmanek. Od $n =3$ do $n=9$ opłaca się salonowi posiadać już tylko żeński personel. Jednakże, zatrudnianie kolejnych barmanów powyżej $n=6$ będzie przynosił niewielkie zyski, a czasami i straty, z działalności baru. 
+
 \begin{figure}
 \centering
-\caption{Prognozowana wielkość przychodu w zależności od zróżnicowania płciowego personelu}
+\caption{Średnia wielkość przychodu w zależności od zróżnicowania płciowego personelu}
 \label{wyk_barmani}
 \includegraphics[width = 0.9\textwidth]{wykresy/barmani.pdf}
 \end{figure}
 
+\begin{figure}
+\centering
+\caption{?????}
+\label{wyk_opt_sciezka}
+\includegraphics[width = 0.9\textwidth]{wykresy/opt_sciezka.pdf}
+\end{figure}
+
 \subsection{Wybór strategii cenowej}
-Drugim parametrem, który ma znaczny wpływ na przychód salonu jest cena drinków na barze. Zostały wzięte pod uwagę trzy strategie cenowe: strategia umiarkowanych cen, gdzie koszt napoju wynosi 2 \$, strategia droższych drinków, gdzie koszt alkoholu wynosiłby 4 \$ oraz strategia tanich drinków, gdzie drink na barze kosztowałby tylko 1 \$. Wykres \ref{wyk_drinki} obrazuje prognozowany przeciętny przychód baru oraz jego odchylenie standardowe z zaproponowanych strategii. Prawie 1.87 razy wyższy przychód uzyskuje bar, jeśli obierze strategię droższych drinków zamiast strategii umiarkowanych cen, jednakże odchylenie standardowe dla korzystniejszej dochodowo strategii jest aż o 1.59 razy wyższe. Strategia tanich drinków jest nieopłacalna dla baru, gdyż przynosi straty, a jej odchylenie standardowe zmiennej jest największe.
+Drugim parametrem, który ma znaczny wpływ na przychód salonu jest cena drinków na barze. Zostały wzięte pod uwagę trzy strategie cenowe: strategia umiarkowanych cen, gdzie koszt napoju wynosi 2\$, strategia droższych drinków, gdzie koszt alkoholu wynosiłby 4\$ oraz strategia tanich drinków, gdzie drink na barze kosztowałby tylko 1\$. Wykres \ref{wyk_drinki} obrazuje prognozowany przeciętny przychód baru oraz jego odchylenie standardowe z zaproponowanych strategii. Prawie 1.98 razy wyższy przychód uzyskuje bar, jeśli obierze strategię droższych drinków zamiast strategii umiarkowanych cen, dodatkowo odchylenie standardowe dla korzystniejszej dochodowo strategii jest najniższe ze wszystkich strategii. Scenariusz tanich drinków jest nieopłacalna dla baru, gdyż przynosi straty, a jej odchylenie standardowe zmiennej jest największe.
 
 \begin{figure}
 \centering
-\caption{Przecięta wielkość przychodu oraz jego odchylenie standardowe w zależności od przyjętej strategii cenowej}
+\caption{Przeciętna wielkość przychodu oraz jego odchylenie standardowe w zależności od przyjętej strategii cenowej}
 \label{wyk_drinki}
 \includegraphics[width = 0.9\textwidth]{wykresy/drinki.pdf}
 \end{figure}
 
 \begin{figure}
 \centering
-\caption{Przecięta wielkość przychodu oraz jego odchylenie standardowe w zależności od wielkości stołu pokerowego}
+\caption{Przeciętna wielkość przychodu oraz jego odchylenie standardowe w zależności od wielkości stołu pokerowego}
 \label{wyk_poker}
 \includegraphics[width = 0.9\textwidth]{wykresy/poker.pdf}
 \end{figure}
 
 \subsection{Wybór optymalnej wielkości stołu do pokera}
-Na przychód salonu znacznie również wpływa gra w pokera, a co za tym idzie wielkość stołu do gry oraz czas spędzony przez klientów na grze. Możliwy jest zakup czterech różnych rozmiarów stołu, przy którym kolejno pomieściłoby się od 5 do 8 graczy. Każdy dodatkowy gracz przy stole oznacza rozgrywkę trwającą 5 minut dłużej. Na wykresie \ref{wyk_poker} został zaprezentowany przeciętny przychód oraz odchylenie standardowe, dla każdej proponowanej wielkości stołu do pokera. Jak łatwo zauważyć, zwiększanie liczby dostępnych miejsc przy stole pokerowym nie prowadzi do znaczącego wzrostu przychodu (wzrost zysku z działalnosci pomiędzy najlepszą a najgorszą strategią wyniósł 9,7 \%). Dodatkowo należy pamiętać, że zakup większego stołu wiąże się prawdopodobnie z wyższymi kosztami mebla, co może być problematyczne dla właściciela baru, jeśli mebel uległby szybkiej eksploatacji czy zniszczeniu podczas strzelaniny.
-
+Na przychód salonu znacznie również wpływa gra w pokera, a co za tym idzie wielkość stołu do gry oraz czas spędzony przez klientów na grze. Możliwy jest zakup czterech różnych rozmiarów stołu, przy którym kolejno pomieściłoby się od 5 do 8 graczy. Każdy dodatkowy gracz przy stole oznacza rozgrywkę trwającą 5 minut dłużej. Na wykresie \ref{wyk_poker} został zaprezentowany przeciętny przychód oraz odchylenie standardowe, dla każdej proponowanej wielkości stołu do pokera. Jak łatwo zauważyć, zwiększanie liczby dostępnych miejsc przy stole pokerowym nie prowadzi do znaczącego wzrostu lub spadku przychodu. Dwie najbardziej opłacalne strategie, stół na 5 graczy oraz na 8 graczy, różnią się średnim zyskiem wyłącznie 0.02\$, na korzyść strategii pierwszej. Dodatkowo należy pamiętać, że zakup większego stołu wiąże się prawdopodobnie z wyższymi kosztami mebla, co może być problematyczne dla właściciela baru, jeśli mebel uległby szybkiej eksploatacji czy zniszczeniu podczas strzelaniny.
 
 \section{Analiza wrażliwości}
-W ramach analizy wrażliwości rozważyliśmy dodatkowo trzy scenariusze: zatrudnianie przez bar ładniejszego personelu,
+W ramach analizy wrażliwości rozważyliśmy dodatkowo trzy scenariusze: zatrudnienie przez bar atrakcyjniejszego personelu, niższy prób cierpliwości klientów czekających w kolejce do baru oraz poprawa jakości wystroju salonu.
 
-\subsection{Ładniejszy personel}
-Rozważany przez nas scenariusz zakłada zatrudnianie przez właściciela baru tylko atrakcyjnego personelu. Zabieg ten przypuszczalnie zwiększył by czas flirtu klienta z barmanem z 15 do 25 minut, jednakże sam przeciętny napiwek również wzrósłby z 1 do 5 \$. Jak widać na wykresie \ref{wyk_personel}, średni przychód baru wzrasta aż o 42 \%, jeżeli właściciel salonu postanowi kierować się zaproponowaną strategią. Jednakże strategia ta będzie opłacalna w przypadku, jeśli zatrudnienie atrakcyjniejszego personelu nie będzie pociągało za sobą wyższych kosztów zatrudnienia, oraz tego, czy barmani będą szczerze rozliczać się z napiwków, a nie odkładać je do swoich kieszeni.
+\subsection{Atrakcyjniejszy personel}
+Rozważany przez nas scenariusz zakłada zatrudnianie przez właściciela baru tylko atrakcyjnego personelu. Zabieg ten przypuszczalnie zwiększył by czas flirtu klienta z pracownikiem, a każde wydłużenie tego procesu o 2 minuty przekładałoby się na napiwek wyższy o 0.8\$. Dodatkowo analiza została przeprowadzona dla personelu składającego się z 3 barmanek. Wartość ta została ustalona na podstawie wcześniejszego poszukiwania optimum. Jak widać na wykresie \ref{wyk_personel}, średni przychód baru wzrasta aż o 84\%, a jego odchylenie standardowe o 60\%, dla zaproponowanej strategii. Jednakże wartość różnicy zmodyfikowanej strategii pomiędzy średnim zyskiem a odchyleniem standardowym, wciąż jest wyższa niż wartość średniego zysku dla standardowego scenariusza. Jednakże należy pamiętać, że strategia atrakcyjniejszego personelu będzie opłacalna w przypadku, jeśli zatrudnienie takiego personelu nie będzie pociągało za sobą wyższych kosztów zatrudnienia, oraz tego, czy barmani będą szczerze rozliczać się z napiwków, a nie odkładać je do swoich kieszeni.
+
+\subsection{Cierpliwość klientów czekających w kolejce do baru}
+Cierpliwość klientów baru oczekujących w kolejce na drinka może ulec znacznej zmianie, kiedy to konie ich już osiodłane, a oni chcieli szybko wypić ostatni trunek przed wyruszeniem w dalszą podróż. Przeprowadziliśmy zatem analizę, która miała za zadanie wyznaczyć oczekiwany średni przychód bar, w sytuacji gdy próg cierpliwości klientów jest niższy niż zazwyczaj. Dokładne wartości średniego zysku baru dla konkretnego progu cierpliwości klientów można prześledzić na wykresie \ref{wyk_kolejka}. Osiągany średni dochód baru zawiera się w przedziale od około 35 do 160\$. Są to wartości znacznie niższe niż uzyskiwane dla sytuacji bazowej. Warto zauważyć, że wartości różnicy średniego dochodu oraz jego odchylenia standardowego przyjmują wartości dodatnie dopiero dla progu cierpliwości bliskiego 6 minut i więcej. Należy zatem wziąć pod uwagę możliwe czynniki wpływające na obniżanie się progu cierpliwości klientów i zapobiegać im.
 
 \begin{figure}
 \centering
-\caption{Przecięta wielkość przychodu oraz jego odchylenie standardowe w zależności od atrakcyjności personelu}
+\caption{Przeciętna wielkość przychodu oraz jego odchylenie standardowe w zależności od atrakcyjności personelu}
 \label{wyk_personel}
 \includegraphics[width = 0.9\textwidth]{wykresy/personel.pdf}
 \end{figure}
 
-\subsection{Strzelaniny}
+\begin{figure}
+\centering
+\caption{Próg cierpliwości klientów a średni zysk z działalności baru}
+\label{wyk_kolejka}
+\includegraphics[width = 0.9\textwidth]{wykresy/zajecie_w_kolejce.pdf}
+\end{figure}
 
-\subsection{Zajęcie w kolejce}
+\begin{figure}
+\centering
+\caption{Jakość wystroju salonu a średni zysk z działalności}
+\label{wyk_wystroj}
+\includegraphics[width = 0.9\textwidth]{wykresy/wystroj.pdf}
+\end{figure}
 
+\subsection{Lepsza jakość wystroju salonu}
+Rozważany przez nas scenariusz zakłada możliwość zmiany jakościowej wystroju baru. Lepszy wystrój baru przyciąga większa liczbę klientów, jednakże w wypadku strzelaniny właściciel będzie ponosił wyższe koszty naprawy salonu. Jak widać na wykresie \ref{wyk_wystroj}, poprawa wystroju baru zwiększa średni zysk baru do momentu osiągnięcia jakości równej około 11 jednostek. Potem zauważalny jest ciągły spadek w osiąganych średnich dochodów. Opierając się na tych danych wnioskujemy, że inwestycja w lepszą jakość wystroju jest opłacalna, jeśli średni zysk z lepszego wystroju będzie przekraczać średni przychód baru, który kształtował się na poziomie 178\$. Inwestycja w lepszy wystój będzie przypuszczalnie opłacalna dla jakości wystroju ocenianej w przedziale od około 5 do 13 jednostek.
 
 \section{Wnioski}
+Podsumowując, rekomendujemy właścicielowi baru zatrudnianie personelu, który będzie składał się do 6 pracowników. W sytuacji, gdy załoga baru ma nie przekraczać dwójki pracowników, opłaca się zatrudnić mężczyzn, natomiast później bardziej opłacalne jest zatrudnianie samych kobiet. Dodatkowo należy przyjąć strategię droższych drinków, gdyż to ona przyniesie najwyższe dochody, a jej wyniki wahają się najmniej ze wszystkich zaproponowanych scenariuszy. Natomiast rozważając wielkość stołu do gry w pokera, rekomendowany jest zakup stołów dla 5 graczy, ponieważ wiąże się  to porównywalnym najwyższym zyskiem z działalności oraz  z prawdopodobnie niższymi kosztami zakupu mebla. Analiza wrażliwości wykazała również, że opłacalne jest zatrudnianie atrakcyjniejszych barmanek, jeśli nie wiąże się to z dodatkowymi kosztami zatrudnienia danego personelu oraz z jego uczciwym rozliczaniem się z napiwków z szefem baru. Należy również wziąć pod uwagę możliwe czynniki wpływające na obniżanie się progu cierpliwości klientów i im zapobiegać. W przeciwnym wypadku, możliwa jest sytuacja, gdy średnie przychody baru zaczną się znacznie obniżać. Końcowo, właściciel baru powinien rozważyć inwestycję w lepszy wystrój lokalu, ale tylko wtedy, gdy bar poprawi swoją jakość co najmniej o 5, ale nie więcej niż 13 jednostek.
 
 \begin{thebibliography}{9}
 %\bibitem{slajdy}
